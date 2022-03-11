@@ -1,0 +1,152 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: ArtBlocksV1
+    network: mainnet
+    source:
+      address: '0x059EDD72Cd353dF5106D2B9cC5ab83a52287aC3a'
+      abi: ERC721
+      startBlock: 11338811
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Application
+        - ERC20Transfer
+        - ERC721Transfer
+        - TransfersLookupTable
+        - NFTSale
+      abis:
+        - name: ERC721
+          file: ./abis/ERC721.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleERC721Transfer
+      file: ./src/erc721_mapping.ts
+      blockHandlers:
+        - handler: handleBlock
+  - kind: ethereum
+    name: ArtBlocksV2
+    network: mainnet
+    source:
+      address: '0xa7d8d9ef8D8Ce8992Df33D8b8CF4Aebabd5bD270'
+      abi: ERC721
+      startBlock: 11437151
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Application
+        - ERC20Transfer
+        - ERC721Transfer
+        - TransfersLookupTable
+        - NFTSale
+      abis:
+        - name: ERC721
+          file: ./abis/ERC721.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleERC721Transfer
+      file: ./src/erc721_mapping.ts
+      blockHandlers:
+        - handler: handleBlock
+  - kind: ethereum
+    name: WETH
+    network: mainnet
+    source:
+      address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+      abi: ERC20
+      startBlock: 11338811
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Application
+        - ERC20Transfer
+        - ERC721Transfer
+        - TransfersLookupTable
+        - NFTSale
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleERC20Transfer
+      file: ./src/erc20_mapping.ts
+  - kind: ethereum
+    name: USDC
+    network: mainnet
+    source:
+      address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+      abi: ERC20
+      startBlock: 11338811
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Application
+        - ERC20Transfer
+        - ERC721Transfer
+        - TransfersLookupTable
+        - NFTSale
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleERC20Transfer
+      file: ./src/erc20_mapping.ts
+  - kind: ethereum
+    name: DAI
+    network: mainnet
+    source:
+      address: '0x6B175474E89094C44Da98b954EedeAC495271d0F'
+      abi: ERC20
+      startBlock: 11338811
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Application
+        - ERC20Transfer
+        - ERC721Transfer
+        - TransfersLookupTable
+        - NFTSale
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleERC20Transfer
+      file: ./src/erc20_mapping.ts
+  - kind: ethereum
+    name: ABST
+    network: mainnet
+    source:
+      address: '0x2feb105fbb4c922597b125c56822b3db7351b55d'
+      abi: ERC20
+      startBlock: 11338811
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Application
+        - ERC20Transfer
+        - ERC721Transfer
+        - TransfersLookupTable
+        - NFTSale
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleERC20Transfer
+      file: ./src/erc20_mapping.ts

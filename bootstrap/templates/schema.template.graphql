@@ -1,0 +1,107 @@
+enum PaymentToken {
+  $PAYMENT_TOKENS$
+}
+
+enum MonitoredERC721 {
+  $MONITORED_ERC721$
+}
+
+type Application @entity{
+  "Singleton id"
+  id: ID!
+
+  "The next available ERC20 Transfer ID"
+  nextERC20TransferID: BigInt!
+
+  "The next available ERC721 Transfer ID"
+  nextERC721TransferID: BigInt!
+
+  "The list of TransferLookupTable to process"
+  transfersLookupTablesToProcess: [TransfersLookupTable!]!
+}
+
+type ERC20Transfer @entity {
+  "The ERC20 Transfer ID (taken from the application entity)"
+  id: ID!
+
+  "The ERC20 contract address"
+  contractAddress: Bytes!
+
+  "The ERC20 contract name"
+  contractName: PaymentToken!
+
+  "The ERC20 sender address"
+  from: Bytes!
+
+  "To ERC20 receiver address"
+  to: Bytes!
+
+  "The ERC20 amount transfered"
+  value: BigInt!
+}
+
+type ERC721Transfer @entity {
+  "The ERC721 Transfer ID (taken from the application entity)"
+  id: ID!
+
+  "The transaction 'To' target"
+  interacted_with: Bytes!
+
+  "The ERC721 contract address"
+  contractAddress: Bytes!
+
+  "The ERC721 contract name"
+  contractName: MonitoredERC721!
+
+  "The ERC721 sender address"
+  from: Bytes!
+
+  "The ERC721 receiver address"
+  to: Bytes!
+
+  "The transfered token id"
+  tokenId: BigInt!
+}
+
+type TransfersLookupTable @entity {
+  "The lookup table ID (transaction hash)"
+  id: ID!
+
+  "The block number"
+  blockNumber: BigInt!
+
+  "The block timestamp"
+  blockTimestamp: BigInt!
+
+  "The amount of ETH transfered during this transaction"
+  ethValue: BigInt
+
+  "The list of ERC20 transfered during this transaction"
+  erc20Transfers: [ERC20Transfer!]!
+
+  "The list of ERC721 transfered during this transaction"
+  erc721Transfers: [ERC721Transfer!]!
+}
+
+type NFTSale @entity {
+  "The transaction hash"
+  id: ID!
+
+  "The transaction 'To' target"
+  interacted_with: Bytes!
+
+  "The buyer address"
+  buyer: Bytes!
+
+  "The seller address"
+  seller: Bytes!
+
+  "The payment ERC20 contract address"
+  paymentTokenAddress: Bytes!
+
+  "The payment ERC20 contract name"
+  paymentTokenName: PaymentToken!
+
+  "The transfers lookup table of this sale"
+  transfersLookupTable: TransfersLookupTable!
+}

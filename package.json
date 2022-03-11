@@ -1,0 +1,19 @@
+{
+  "name": "nft-sales-indexer",
+  "license": "UNLICENSED",
+  "scripts": {
+    "bootstrap": "node bootstrap/bootstrap.js",
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy-hosted": "graph deploy --node https://api.thegraph.com/deploy/ xenoliss/generic-nft-sales-indexer",
+    "deploy-studio": "graph deploy --node https://api.studio.thegraph.com/deploy/ nft-sales-indexer",
+    "create-local": "graph create --node http://localhost:8020/ nft-sales-indexer",
+    "remove-local": "graph remove --node http://localhost:8020/ nft-sales-indexer",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 nft-sales-indexer"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.27.0",
+    "@graphprotocol/graph-ts": "0.24.1",
+    "write-yaml-file": "^4.2.0"
+  }
+}

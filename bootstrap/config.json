@@ -1,0 +1,21 @@
+{
+    "ERC721": {
+        "__comments": "Here add the ERC721 (NFT) contracts you are willing to track (not case sensitive in address)",
+        "ArtBlocksV1": {
+            "address": "0x059EDD72Cd353dF5106D2B9cC5ab83a52287aC3a",
+            "startBlock": 11338811
+        },
+        "ArtBlocksV2": {
+            "address": "0xa7d8d9ef8D8Ce8992Df33D8b8CF4Aebabd5bD270",
+            "startBlock": 11437151
+        }
+    },
+    "PAYMENT_TOKENS": {
+        "__comments": "Here add the payment tokens you are willing to track (not case sensitive in address).",
+        "ETH": "0x0000000000000000000000000000000000000000",
+        "WETH": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+        "USDC": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "DAI": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+        "ABST": "0x2feb105fbb4c922597b125c56822b3db7351b55d"
+    }
+}

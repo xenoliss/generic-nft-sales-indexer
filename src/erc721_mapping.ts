@@ -54,7 +54,6 @@ function _registerETHSale(event: Transfer, application: Application): void {
 
     // Create the ERC721Transfer entity
     let erc721Transfer = new ERC721Transfer(erc721TransferID.toString());
-    erc721Transfer.interacted_with = interacted_with;
     erc721Transfer.contractAddress = event.address;
     erc721Transfer.contractName = addressToContractName(event.address.toHexString());
     erc721Transfer.from = from;
@@ -63,7 +62,12 @@ function _registerETHSale(event: Transfer, application: Application): void {
     erc721Transfer.save();
 
     // Fill the associated TransfersLookupTable
-    let loadOrCreateLookupTableReturn = loadOrCreateLookupTable(event.transaction.hash.toHexString(), blockNumber, blockTimestamp);
+    let loadOrCreateLookupTableReturn = loadOrCreateLookupTable(
+        event.transaction.hash.toHexString(),
+        blockNumber,
+        blockTimestamp,
+        interacted_with
+    );
     let transfersLookupTable = loadOrCreateLookupTableReturn.transfersLookupTable;
     let transfersLookupTableCreated = loadOrCreateLookupTableReturn.created;
 
@@ -83,6 +87,8 @@ function _registerETHSale(event: Transfer, application: Application): void {
     // Paid with ETH
     if (transfersLookupTableCreated) {
         let nftSale = new NFTSale(transfersLookupTable.id);
+        nftSale.blockNumber = blockNumber;
+        nftSale.blockTimestamp = blockTimestamp;
         nftSale.interacted_with = interacted_with;
         nftSale.buyer = to;
         nftSale.seller = from;
@@ -110,7 +116,6 @@ function _registerERC721Transfer(event: Transfer, application: Application): voi
 
     // Create the ERC20Transfer entity
     let erc721Transfer = new ERC721Transfer(erc721TokenId.toString());
-    erc721Transfer.interacted_with = interacted_with;
     erc721Transfer.contractAddress = event.address;
     erc721Transfer.contractName = addressToContractName(event.address.toHexString());
     erc721Transfer.from = from;
@@ -119,7 +124,13 @@ function _registerERC721Transfer(event: Transfer, application: Application): voi
     erc721Transfer.save();
 
     // Fill the associated TransfersLookupTable with this ERC20Transfer
-    let loadOrCreateLookupTableReturn = loadOrCreateLookupTable(event.transaction.hash.toHexString(), blockNumber, blockTimestamp);
+    let loadOrCreateLookupTableReturn = loadOrCreateLookupTable(
+        event.transaction.hash.toHexString(),
+        blockNumber,
+        blockTimestamp,
+        interacted_with
+    );
+
     let transfersLookupTable = loadOrCreateLookupTableReturn.transfersLookupTable;
     let transfersLookupTableCreated = loadOrCreateLookupTableReturn.created;
 
@@ -214,6 +225,9 @@ function _tryBuildNFTSale(transfersLookupTable: TransfersLookupTable): NFTSale |
 
     // Else all tests passed, it's a sale
     let nftSale = new NFTSale(transfersLookupTable.id);
+    nftSale.blockNumber = transfersLookupTable.blockNumber;
+    nftSale.blockTimestamp = transfersLookupTable.blockTimestamp;
+    nftSale.interacted_with = transfersLookupTable.interacted_with;
     nftSale.buyer = firstErc721Transfer.to;
     nftSale.seller = firstErc721Transfer.from;
     nftSale.paymentTokenAddress = firstErc20Transfer.contractAddress;

@@ -1,4 +1,4 @@
-import { BigInt } from "@graphprotocol/graph-ts"
+import { Address, BigInt } from "@graphprotocol/graph-ts"
 import { Application, TransfersLookupTable } from "../generated/schema"
 
 import { $CONSTANTS_IMPORT$ } from "./contract_addresses";
@@ -43,7 +43,12 @@ class LoadOrCreateLookupTableReturn {
  * @param blockTimeStamp The block timestamp
  * @returns A `LoadOrCreateLookupTableReturn` type
  */
-export function loadOrCreateLookupTable(txHash: string, blockNumber: BigInt, blockTimestamp: BigInt): LoadOrCreateLookupTableReturn {
+export function loadOrCreateLookupTable(
+    txHash: string,
+    blockNumber: BigInt,
+    blockTimestamp: BigInt,
+    interacted_with: Address,
+): LoadOrCreateLookupTableReturn {
     let created = false;
     let transfersLookupTable = TransfersLookupTable.load(txHash);
 
@@ -52,6 +57,7 @@ export function loadOrCreateLookupTable(txHash: string, blockNumber: BigInt, blo
         transfersLookupTable = new TransfersLookupTable(txHash);
         transfersLookupTable.blockNumber = blockNumber;
         transfersLookupTable.blockTimestamp = blockTimestamp;
+        transfersLookupTable.interacted_with = interacted_with;
         transfersLookupTable.erc20Transfers = [];
         transfersLookupTable.erc721Transfers = [];
     }

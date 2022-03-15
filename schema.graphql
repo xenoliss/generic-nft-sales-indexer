@@ -51,9 +51,6 @@ type ERC721Transfer @entity {
   "The ERC721 Transfer ID (taken from the application entity)"
   id: ID!
 
-  "The transaction 'To' target"
-  interacted_with: Bytes!
-
   "The ERC721 contract address"
   contractAddress: Bytes!
 
@@ -80,6 +77,9 @@ type TransfersLookupTable @entity {
   "The block timestamp"
   blockTimestamp: BigInt!
 
+  "The transaction 'To' target"
+  interacted_with: Bytes!
+
   "The amount of ETH transfered during this transaction"
   ethValue: BigInt
 
@@ -93,6 +93,12 @@ type TransfersLookupTable @entity {
 type NFTSale @entity {
   "The transaction hash"
   id: ID!
+
+  "The block number"
+  blockNumber: BigInt!
+
+  "The block timestamp"
+  blockTimestamp: BigInt!
 
   "The transaction 'To' target"
   interacted_with: Bytes!

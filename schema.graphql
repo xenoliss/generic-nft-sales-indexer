@@ -77,8 +77,8 @@ type TransfersLookupTable @entity {
   "The block timestamp"
   blockTimestamp: BigInt!
 
-  "The transaction 'To' target"
-  interacted_with: Bytes!
+  "The transaction 'To' target (can be null in some rare cases)"
+  interactedWith: Bytes
 
   "The amount of ETH transfered during this transaction"
   ethValue: BigInt
@@ -100,8 +100,8 @@ type NFTSale @entity {
   "The block timestamp"
   blockTimestamp: BigInt!
 
-  "The transaction 'To' target"
-  interacted_with: Bytes!
+  "The transaction 'To' target (can be null in some rare cases)"
+  interactedWith: Bytes
 
   "The buyer address"
   buyer: Bytes!

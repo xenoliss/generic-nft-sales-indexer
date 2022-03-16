@@ -11,7 +11,7 @@ import { addressToContractName, loadOrCreateLookupTable, loadOrdCreateApplicatio
 export function handleERC20Transfer(event: Transfer): void {
   let blockNumber = event.block.number;
   let blockTimestamp = event.block.timestamp;
-  let interacted_with = event.transaction.to!;
+  let interactedWith = event.transaction.to;
 
   let from = event.params.from;
   let to = event.params.to;
@@ -34,7 +34,7 @@ export function handleERC20Transfer(event: Transfer): void {
     event.transaction.hash.toHexString(),
     blockNumber,
     blockTimestamp,
-    interacted_with,
+    interactedWith,
   );
 
   let transfersLookupTable = loadOrCreateLookupTableReturn.transfersLookupTable;

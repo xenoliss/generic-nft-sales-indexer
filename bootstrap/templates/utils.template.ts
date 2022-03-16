@@ -47,7 +47,7 @@ export function loadOrCreateLookupTable(
     txHash: string,
     blockNumber: BigInt,
     blockTimestamp: BigInt,
-    interacted_with: Address,
+    interactedWith: Address | null,
 ): LoadOrCreateLookupTableReturn {
     let created = false;
     let transfersLookupTable = TransfersLookupTable.load(txHash);
@@ -57,9 +57,11 @@ export function loadOrCreateLookupTable(
         transfersLookupTable = new TransfersLookupTable(txHash);
         transfersLookupTable.blockNumber = blockNumber;
         transfersLookupTable.blockTimestamp = blockTimestamp;
-        transfersLookupTable.interacted_with = interacted_with;
+        transfersLookupTable.interactedWith = interactedWith;
         transfersLookupTable.erc20Transfers = [];
         transfersLookupTable.erc721Transfers = [];
+    } else if (!transfersLookupTable.interactedWith && interactedWith) {
+        transfersLookupTable.interactedWith = interactedWith;
     }
 
     return { transfersLookupTable, created };

@@ -44,7 +44,7 @@ export function handleERC721Transfer(event: Transfer): void {
 function _registerETHSale(event: Transfer, application: Application): void {
     let blockNumber = event.block.number;
     let blockTimestamp = event.block.timestamp;
-    let interacted_with = event.transaction.to!;
+    let interactedWith = event.transaction.to;
 
     let from = event.params.from;
     let to = event.params.to;
@@ -66,7 +66,7 @@ function _registerETHSale(event: Transfer, application: Application): void {
         event.transaction.hash.toHexString(),
         blockNumber,
         blockTimestamp,
-        interacted_with
+        interactedWith
     );
     let transfersLookupTable = loadOrCreateLookupTableReturn.transfersLookupTable;
     let transfersLookupTableCreated = loadOrCreateLookupTableReturn.created;
@@ -89,7 +89,7 @@ function _registerETHSale(event: Transfer, application: Application): void {
         let nftSale = new NFTSale(transfersLookupTable.id);
         nftSale.blockNumber = blockNumber;
         nftSale.blockTimestamp = blockTimestamp;
-        nftSale.interacted_with = interacted_with;
+        nftSale.interactedWith = interactedWith;
         nftSale.buyer = to;
         nftSale.seller = from;
         nftSale.paymentTokenAddress = changetype<Bytes>(Bytes.fromHexString(NULL_ADDRESS));
@@ -106,7 +106,7 @@ function _registerETHSale(event: Transfer, application: Application): void {
 function _registerERC721Transfer(event: Transfer, application: Application): void {
     let blockNumber = event.block.number;
     let blockTimestamp = event.block.timestamp;
-    let interacted_with = event.transaction.to!;
+    let interactedWith = event.transaction.to;
 
     let from = event.params.from;
     let to = event.params.to;
@@ -128,7 +128,7 @@ function _registerERC721Transfer(event: Transfer, application: Application): voi
         event.transaction.hash.toHexString(),
         blockNumber,
         blockTimestamp,
-        interacted_with
+        interactedWith
     );
 
     let transfersLookupTable = loadOrCreateLookupTableReturn.transfersLookupTable;
@@ -227,7 +227,7 @@ function _tryBuildNFTSale(transfersLookupTable: TransfersLookupTable): NFTSale |
     let nftSale = new NFTSale(transfersLookupTable.id);
     nftSale.blockNumber = transfersLookupTable.blockNumber;
     nftSale.blockTimestamp = transfersLookupTable.blockTimestamp;
-    nftSale.interacted_with = transfersLookupTable.interacted_with;
+    nftSale.interactedWith = transfersLookupTable.interactedWith;
     nftSale.buyer = firstErc721Transfer.to;
     nftSale.seller = firstErc721Transfer.from;
     nftSale.paymentTokenAddress = firstErc20Transfer.contractAddress;

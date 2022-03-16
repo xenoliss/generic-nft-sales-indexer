@@ -165,6 +165,10 @@ function _registerERC721Transfer(event: Transfer, application: Application): voi
  */
 export function handleBlock(block: ethereum.Block): void {
     let blockNumber = block.number;
+    if (!blockNumber.mod(BigInt.fromI32(2))) {
+        return;
+    }
+
     let application = loadOrdCreateApplication();
 
     // Get a copy of the list of `TransfersLookupTable`
